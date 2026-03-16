@@ -4,7 +4,7 @@
  */
 
 // Debugging log
-console.log("PackMaillerWEB: Script loading...");
+console.log("PackMaillerWEB: Script loading version 1.1...");
 
 // Check if settings are available
 if (!window.PackSettings) {
@@ -13,19 +13,32 @@ if (!window.PackSettings) {
 
 let currentSettings = window.PackSettings ? window.PackSettings.get() : { zimmetMode: 'BIRIM' };
 
-// Office context initialization
+// Ultra-defensive Office initialization
+function startApp() {
+    console.log("PackMaillerWEB: Starting app logic...");
+    initApp();
+}
+
 if (typeof Office !== 'undefined') {
-    Office.onReady((info) => {
-        console.log("PackMaillerWEB: Office.js ready.", info);
-        initApp();
+    Office.onReady(function (info) {
+        console.log("PackMaillerWEB: Office.js ready check.");
+        // info.host is safer to check than Office.Host directly
+        if (info && info.host) {
+            console.log("PackMaillerWEB: Running inside host: " + info.host);
+        } else {
+            console.log("PackMaillerWEB: Running in standalone browser mode.");
+        }
+        startApp();
+    }).catch(function (err) {
+        console.error("PackMaillerWEB: Office.onReady failed, starting anyway.", err);
+        startApp();
     });
 } else {
-    console.warn("PackMaillerWEB: Office.js not detected, running in standalone mode.");
-    // Wait for DOM to be sure
+    console.warn("PackMaillerWEB: Office.js script tag not found or failed to load.");
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initApp);
+        document.addEventListener('DOMContentLoaded', startApp);
     } else {
-        initApp();
+        startApp();
     }
 }
 
