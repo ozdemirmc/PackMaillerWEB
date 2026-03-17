@@ -393,18 +393,28 @@ async function prepareMail() {
             const fromAddress = { emailAddress: "TTUBBSAWPAKETHAZIRLIK@THY.COM" };
             item.from.setAsync(fromAddress, function (asyncResult) {
                 if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+                    alert("UYARI: Gönderen (Kimden) hesabı 'TTUBBSAWPAKETHAZIRLIK@THY.COM' olarak ayarlanamadı. Lütfen yetkilerinizi kontrol edip maili manuel gönderiniz.\n\nHata: " + asyncResult.error.message);
                     console.log("From (Kimden) hesabı otomatik ayarlanamadı: " + asyncResult.error.message);
+                    return; // Stop execution if we can't set the from address
+                } else {
+                    finalizeMailPreparation(item, subject, toRecipients, ccRecipients, body);
                 }
             });
+        } else {
+             // Fallback if from API is totally unavailable, but still prepare the rest
+             finalizeMailPreparation(item, subject, toRecipients, ccRecipients, body);
         }
 
-        item.subject.setAsync(subject);
-        item.to.setAsync(toRecipients); // Office.js accepts arrays
-        item.cc.setAsync(ccRecipients);
-        item.body.setAsync(body, { coercionType: Office.CoercionType.Html });
-
-        console.log("Mail prepared successfully!");
     } catch (error) {
         console.error("Preparation failed", error);
+        alert("Mail hazırlanırken beklenmeyen bir hata oluştu.");
     }
+}
+
+function finalizeMailPreparation(item, subject, toRecipients, ccRecipients, body) {
+    item.subject.setAsync(subject);
+    item.to.setAsync(toRecipients); // Office.js accepts arrays
+    item.cc.setAsync(ccRecipients);
+    item.body.setAsync(body, { coercionType: Office.CoercionType.Html });
+    console.log("Mail prepared successfully!");
 }
