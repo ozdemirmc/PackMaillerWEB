@@ -77,17 +77,27 @@ async function checkFromAddress() {
 }
 
 function initApp() {
-    // UI Elements
     const btnPrepare = document.getElementById('btnPrepare');
     const btnSettings = document.getElementById('btnSettings');
     const btnCloseSettings = document.getElementById('btnCloseSettings');
     const btnSaveSettings = document.getElementById('btnSaveSettings');
     const settingsOverlay = document.getElementById('settingsOverlay');
 
-    const inputs = ['txtAc', 'txtBakim', 'dateInput', 'skillGrid'];
-    const radioGroups = ['bay', 'type'];
+    // Email inputs - Add Enter key listener
+    ['inBay1', 'inBay2', 'inBay3', 'inCc'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const keyMap = { 'inBay1': 'bay1To', 'inBay2': 'bay2To', 'inBay3': 'bay3To', 'inCc': 'cc' };
+                    addEmailFromUI(keyMap[id], id);
+                }
+            });
+        }
+    });
 
-    // Event listeners for real-time preview
+    // Real-time preview updates
+    const inputs = ['txtAc', 'txtBakim', 'dateInput'];
     inputs.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', updatePreview);
@@ -95,9 +105,7 @@ function initApp() {
 
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
         radio.addEventListener('change', (e) => {
-            if (e.target.name === 'type') {
-                handleTypeChange(e.target.value);
-            }
+            if (e.target.name === 'type') handleTypeChange(e.target.value);
             updatePreview();
         });
     });
@@ -106,38 +114,29 @@ function initApp() {
         chk.addEventListener('change', updatePreview);
     });
 
-    // Main Actions
-    if (btnPrepare) {
-        btnPrepare.onclick = function () {
-            console.log("PackMaillerWEB: Hazırla butonu tıklandı.");
-            prepareMail();
-        };
-    }
+    if (btnPrepare) btnPrepare.onclick = prepareMail;
 
-    // Settings Modal Actions
     if (btnSettings) {
-        btnSettings.onclick = function () {
-            console.log("PackMaillerWEB: Ayarlar butonu tıklandı.");
+        btnSettings.onclick = () => {
             loadSettingsToUI();
             if (settingsOverlay) settingsOverlay.classList.remove('hidden');
         };
     }
 
     if (btnCloseSettings) {
-        btnCloseSettings.onclick = function () {
+        btnCloseSettings.onclick = () => {
             if (settingsOverlay) settingsOverlay.classList.add('hidden');
         };
     }
 
     if (btnSaveSettings) {
-        btnSaveSettings.onclick = function () {
-            console.log("PackMaillerWEB: Ayarlar kaydediliyor.");
+        btnSaveSettings.onclick = () => {
             const newSettings = {
                 zimmetMode: document.getElementById('selZimmetMode').value,
-                bay1To: document.getElementById('txtToBay1').value,
-                bay2To: document.getElementById('txtToBay2').value,
-                bay3To: document.getElementById('txtToBay3').value,
-                cc: document.getElementById('txtCc').value
+                bay1To: currentSettings.bay1To,
+                bay2To: currentSettings.bay2To,
+                bay3To: currentSettings.bay3To,
+                cc: currentSettings.cc
             };
             window.PackSettings.save(newSettings);
             currentSettings = newSettings;
@@ -148,23 +147,17 @@ function initApp() {
     }
 
     // Initialize UI
-    try {
-        const today = new Date().toISOString().split('T')[0];
-        const dateInput = document.getElementById('dateInput');
-        if (dateInput) dateInput.value = today;
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('dateInput');
+    if (dateInput) dateInput.value = today;
 
-        applyZimmetMode();
-        updatePreview();
-        console.log("PackMaillerWEB: UI Hazır.");
-    } catch (err) {
-        console.error("PackMaillerWEB: UI başlatılırken hata oluştu", err);
-    }
+    applyZimmetMode();
+    updatePreview();
 }
 
 function handleTypeChange(type) {
     const isPlanned = type === 'planned';
     const skillChecks = document.querySelectorAll('#skillGrid input');
-
     if (currentSettings.zimmetMode === 'PLANNER') return;
 
     skillChecks.forEach(chk => {
@@ -172,17 +165,12 @@ function handleTypeChange(type) {
             chk.checked = true;
             chk.disabled = false;
         } else {
-            // Unplanned or Periodic
-            if (chk.id === 'chk30') { // 30-MEKANIK
-                chk.checked = true;
-                chk.disabled = true;
-            } else {
-                chk.checked = false;
-                chk.disabled = true;
-            }
+            chk.checked = (chk.id === 'chk30'); // Only mechanics for unplanned
+            chk.disabled = true;
         }
     });
 }
+
 
 function applyZimmetMode() {
     const isPlanner = currentSettings.zimmetMode === 'PLANNER';
