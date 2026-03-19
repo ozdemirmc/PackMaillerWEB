@@ -68,7 +68,10 @@ async function handleInitialFromAddress() {
         
         // Check requirement set for from.setAsync (Mailbox 1.7)
         if (!Office.context.requirements.isSetSupported('Mailbox', '1.7')) {
-            console.error("PackMaillerWEB: Mailbox 1.7 not supported. Automatic From setting will not work.");
+            const msg = "Sistem desteklenmiyor (Mailbox 1.7+ gerekli).";
+            console.error("PackMaillerWEB: " + msg);
+            const errEl = document.getElementById('errorDetail');
+            if (errEl) errEl.innerText = msg;
             checkFromAddress(); // Show warning since we can't auto-set
             return;
         }
@@ -92,7 +95,10 @@ async function handleInitialFromAddress() {
                         if (setResult.status === Office.AsyncResultStatus.Succeeded) {
                             console.log("PackMaillerWEB: Target From set successfully.");
                         } else {
-                            console.error("PackMaillerWEB: setAsync failed:", setResult.error.message);
+                            const errMsg = setResult.error.message;
+                            console.error("PackMaillerWEB: setAsync failed:", errMsg);
+                            const errEl = document.getElementById('errorDetail');
+                            if (errEl) errEl.innerText = "Hata: " + errMsg;
                         }
                         checkFromAddress(); // Update warning UI immediately
                     });
