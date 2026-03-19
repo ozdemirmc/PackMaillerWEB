@@ -23,6 +23,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    transition: padding-top 0.3s ease;
+}
+
+.container.has-warning {
+    padding-top: 72px; /* 32px header + 40px warning */
 }
 
 .header {
@@ -62,16 +67,27 @@ body {
     top: 32px;
     left: 0;
     right: 0;
+    height: 40px;
     background: #fffafa;
-    border-bottom: 1px solid var(--accent);
+    border-bottom: 2px solid var(--accent);
     color: var(--accent);
-    padding: 6px 10px;
-    font-size: 10px;
-    font-weight: 600;
+    padding: 0 12px;
+    font-size: 11px;
+    font-weight: 700;
     z-index: 90;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 10px;
+    box-shadow: 0 4px 6px -1px rgba(226, 0, 26, 0.1);
+    animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    box-sizing: border-box;
+}
+
+.warning-bar b { color: var(--accent); text-transform: uppercase; }
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
 }
 
 .section {
