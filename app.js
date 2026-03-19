@@ -214,7 +214,8 @@ function handleTypeChange(type) {
             chk.checked = true;
             chk.disabled = false;
         } else {
-            chk.checked = (chk.id === 'chk30'); // Only mechanics for unplanned
+            // PLANSIZ ve PERİYODİK: sadece MEKANİK
+            chk.checked = (chk.id === 'chk30');
             chk.disabled = true;
         }
     });
@@ -299,8 +300,9 @@ function generateHTML() {
     const dateRaw = document.getElementById('dateInput').value;
     const date = dateRaw ? new Date(dateRaw).toLocaleDateString('tr-TR') : '';
 
-    const bakimPlaniText = typeValue === 'planned' ? 'VAR' : typeValue === 'unplanned' ? 'YOK' : 'PERİYODİK BAKIM';
+    const bakimPlaniText = typeValue === 'planned' ? 'VAR' : typeValue === 'periodic' ? 'PERİYODİK BAKIM' : 'YOK';
     const isPlanned = typeValue === 'planned';
+    const isPeriodic = typeValue === 'periodic';
     const isPlannerMode = currentSettings.zimmetMode === 'PLANNER';
 
     let html = `
@@ -357,6 +359,21 @@ function generateHTML() {
         });
 
         html += `</tbody></table>`;
+    } else if (isPeriodic) {
+        html += `
+            <p>Periyodik bakım paketi olup, paket içeriğinin tamamı tek bir isim üzerine zimmetlenecektir. Kartların kime zimmetleneceğini tabloya işleyerek bu e-posta üzerinden bildirmenizi rica ederiz.</p>
+            <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                <thead>
+                    <tr style="background-color: #E2001A; color: #fff;">
+                        <th style="border: 1px solid #d1d5db; padding: 12px; text-align: left;">BİRİM</th>
+                        <th style="border: 1px solid #d1d5db; padding: 12px; text-align: left;">ZİMMET ÇIKILACAK İSİM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td style="border: 1px solid #d1d5db; padding: 12px; font-weight: bold;">MEKANİK</td><td style="border: 1px solid #d1d5db; padding: 12px;"></td></tr>
+                </tbody>
+            </table>
+        `;
     } else {
         html += `
             <p>Bakım planı bulunmadığından, paket içeriğinin tamamı tek bir isim üzerine zimmetlenecektir. Kartların kime zimmetleneceğini tabloya işleyerek bu e-posta üzerinden bildirmenizi rica ederiz.</p>
