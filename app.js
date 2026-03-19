@@ -61,18 +61,17 @@ async function checkFromAddress() {
         if (item.from && typeof item.from.getAsync === 'function') {
             item.from.getAsync(function (result) {
                 if (result.status === Office.AsyncResultStatus.Succeeded) {
-                    // result.value is a From object in some clients, or emailAddressDetails
                     const currentFrom = (result.value.emailAddress || result.value).toUpperCase();
-                    const warningBar = document.getElementById('warningBar');
-                    const container = document.getElementById('container');
+                    const senderNote = document.getElementById('senderNote');
 
-                    if (warningBar && container) {
+                    if (senderNote) {
                         if (currentFrom !== targetAddress) {
-                            warningBar.classList.remove('hidden');
-                            container.classList.add('has-warning');
+                            senderNote.style.background = '#fff0f0';
+                            senderNote.style.borderColor = 'var(--accent)';
                         } else {
-                            warningBar.classList.add('hidden');
-                            container.classList.remove('has-warning');
+                            senderNote.style.background = '#f0fff4';
+                            senderNote.style.borderColor = '#22c55e';
+                            senderNote.innerHTML = '✅ GÖNDERİCİ HESABI: <b style="color: #22c55e;">TT-UBB(SAW)-BAKIMHAZIRLIK</b> — DOĞRU';
                         }
                     }
                 }
@@ -85,12 +84,41 @@ async function checkFromAddress() {
 
 function initApp() {
     const btnPrepare = document.getElementById('btnPrepare');
-    const btnSettings = document.getElementById('btnSettings');
-    const btnCloseSettings = document.getElementById('btnCloseSettings');
     const btnSaveSettings = document.getElementById('btnSaveSettings');
-    const settingsOverlay = document.getElementById('settingsOverlay');
     const alertOverlay = document.getElementById('alertOverlay');
     const btnAlertOk = document.getElementById('btnAlertOk');
+    const sidePanel = document.getElementById('sidePanel');
+    const sidePanelBackdrop = document.getElementById('sidePanelBackdrop');
+    const btnClosePanel = document.getElementById('btnClosePanel');
+    const sidePanelTitle = document.getElementById('sidePanelTitle');
+    const panelSettings = document.getElementById('panelSettings');
+    const panelAbout = document.getElementById('panelAbout');
+
+    // Yan panel aç/kapat fonksiyonları
+    window.openSidePanel = function(view) {
+        // İçerik değiştir
+        if (view === 'settings') {
+            sidePanelTitle.textContent = '⚙️ AYARLAR';
+            panelSettings.classList.remove('hidden');
+            panelAbout.classList.add('hidden');
+            loadSettingsToUI();
+        } else if (view === 'about') {
+            sidePanelTitle.textContent = 'ℹ️ HAKKINDA';
+            panelSettings.classList.add('hidden');
+            panelAbout.classList.remove('hidden');
+        }
+        sidePanel.classList.add('open');
+        sidePanelBackdrop.classList.remove('hidden');
+    };
+
+    window.closeSidePanel = function() {
+        sidePanel.classList.remove('open');
+        sidePanelBackdrop.classList.add('hidden');
+    };
+
+    // Panel kapatma
+    if (btnClosePanel) btnClosePanel.onclick = closeSidePanel;
+    if (sidePanelBackdrop) sidePanelBackdrop.onclick = closeSidePanel;
 
     // Uyarı modali kapatma
     if (btnAlertOk) {
@@ -132,16 +160,21 @@ function initApp() {
 
     if (btnPrepare) btnPrepare.onclick = prepareMail;
 
-    if (btnSettings) {
-        btnSettings.onclick = () => {
-            loadSettingsToUI();
-            if (settingsOverlay) settingsOverlay.classList.remove('hidden');
+    // AYARLAR linki
+    const linkSettings = document.getElementById('linkSettings');
+    if (linkSettings) {
+        linkSettings.onclick = (e) => {
+            e.preventDefault();
+            openSidePanel('settings');
         };
     }
 
-    if (btnCloseSettings) {
-        btnCloseSettings.onclick = () => {
-            if (settingsOverlay) settingsOverlay.classList.add('hidden');
+    // HAKKINDA linki
+    const linkAbout = document.getElementById('linkAbout');
+    if (linkAbout) {
+        linkAbout.onclick = (e) => {
+            e.preventDefault();
+            openSidePanel('about');
         };
     }
 
@@ -156,7 +189,7 @@ function initApp() {
             };
             window.PackSettings.save(newSettings);
             currentSettings = newSettings;
-            if (settingsOverlay) settingsOverlay.classList.add('hidden');
+            closeSidePanel();
             applyZimmetMode();
             updatePreview();
         };
@@ -364,11 +397,13 @@ function updatePreview() {
 }
 
 // Sayfa içi uyarı modali (alert() Office taskpane'de çalışmadığı için)
-function showAlert(message) {
+function showAlert(message, title) {
     const overlay = document.getElementById('alertOverlay');
     const msgEl = document.getElementById('alertMessage');
+    const titleEl = document.getElementById('alertTitle');
     if (overlay && msgEl) {
         msgEl.innerHTML = message;
+        if (titleEl) titleEl.textContent = title || '⚠️ GÖNDERİCİ UYARISI';
         overlay.classList.remove('hidden');
     } else {
         // Fallback: konsola yaz

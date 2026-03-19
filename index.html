@@ -12,18 +12,8 @@
 
 <body>
     <div id="container" class="container">
-        <div id="warningBar" class="warning-bar hidden">
-            <span style="font-size: 16px;">⚠️</span>
-            <div>
-                DİKKAT: GÖNDERİCİ HESABI OLARAK <b style="color: var(--accent);">TT-UBB(SAW)-BAKIMHAZIRLIK</b>
-                SEÇİLMELİDİR!
-                <div id="errorDetail" style="font-size: 8px; opacity: 0.7; margin-top: 2px;"></div>
-            </div>
-        </div>
-
         <header class="header">
             <h1>Pack Mailler</h1>
-            <button id="btnSettings" class="icon-button" title="Ayarlar">⚙️</button>
         </header>
 
         <main>
@@ -79,55 +69,97 @@
             <div style="margin-top: 10px;">
                 <button id="btnPrepare" class="primary-button">MAİL HAZIRLA</button>
             </div>
+
+            <div id="senderNote" class="sender-note">
+                ⚠️ GÖNDERİCİ HESABI OLARAK <b style="color: var(--accent);">TT-UBB(SAW)-BAKIMHAZIRLIK</b> SEÇİLMELİDİR!
+            </div>
+
+            <div class="footer-links">
+                <a href="#" id="linkAbout">HAKKINDA</a>
+                <span>•</span>
+                <a href="#" id="linkSettings">AYARLAR</a>
+            </div>
         </main>
 
         <div id="alertOverlay" class="overlay hidden">
             <div class="modal" style="text-align: center;">
                 <header class="modal-header" style="background: var(--accent);">
-                    <h2 style="font-size: 11px; margin: 0; width: 100%;">⚠️ GÖNDERİCİ UYARISI</h2>
+                    <h2 id="alertTitle" style="font-size: 11px; margin: 0; width: 100%;">⚠️ GÖNDEREN HESAP SEÇİMİ
+                        UYARISI</h2>
                 </header>
                 <div class="modal-body" style="padding: 16px;">
                     <p id="alertMessage" style="font-size: 11px; line-height: 1.6; margin: 0;"></p>
-                    <button id="btnAlertOk" class="primary-button" style="margin-top: 10px; background: var(--accent);">TAMAM</button>
+                    <button id="btnAlertOk" class="primary-button"
+                        style="margin-top: 10px; background: var(--accent);">TAMAM</button>
                 </div>
             </div>
         </div>
 
-        <div id="settingsOverlay" class="overlay hidden">
-            <div class="modal">
-                <header class="modal-header">
-                    <h2 style="font-size: 11px; margin: 0;">Ayarlar</h2>
-                    <button id="btnCloseSettings" class="icon-button" style="color: white;">✕</button>
-                </header>
-                <div class="modal-body">
-                    <div class="setting-item">
-                        <label>Zimmet Modu</label>
-                        <select id="selZimmetMode">
-                            <option value="BIRIM">BİRİM</option>
-                            <option value="PLANNER">PLANNER</option>
-                        </select>
+        <!-- Sol taraftan kayan yan panel -->
+        <div id="sidePanelBackdrop" class="side-backdrop hidden"></div>
+        <div id="sidePanel" class="side-panel">
+            <header class="side-panel-header">
+                <h2 id="sidePanelTitle" style="font-size: 11px; margin: 0;">⚙️ AYARLAR</h2>
+                <button id="btnClosePanel" class="icon-button" style="color: white;">✕</button>
+            </header>
+
+            <!-- AYARLAR İçeriği -->
+            <div id="panelSettings" class="side-panel-body">
+                <div class="setting-item">
+                    <label>ZİMMET MODU</label>
+                    <select id="selZimmetMode">
+                        <option value="BIRIM">BİRİM</option>
+                        <option value="PLANNER">PLANNER</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>BAY-1 (TO)</label>
+                    <div id="listBay1" class="email-list-container"></div>
+                    <div class="email-input-row">
+                        <input type="email" id="inBay1" placeholder="e-posta adresi...">
+                        <button class="add-btn" onclick="addEmailFromUI('bay1To','inBay1')">+</button>
                     </div>
-                    <div class="setting-item">
-                        <label>BAY-1 (TO)</label>
-                        <div id="listBay1" class="email-list-container"></div>
-                        <input type="email" id="inBay1" placeholder="Ekle...">
+                </div>
+                <div class="setting-item">
+                    <label>BAY-2 (TO)</label>
+                    <div id="listBay2" class="email-list-container"></div>
+                    <div class="email-input-row">
+                        <input type="email" id="inBay2" placeholder="e-posta adresi...">
+                        <button class="add-btn" onclick="addEmailFromUI('bay2To','inBay2')">+</button>
                     </div>
-                    <div class="setting-item">
-                        <label>BAY-2 (TO)</label>
-                        <div id="listBay2" class="email-list-container"></div>
-                        <input type="email" id="inBay2" placeholder="Ekle...">
+                </div>
+                <div class="setting-item">
+                    <label>BAY-3 (TO)</label>
+                    <div id="listBay3" class="email-list-container"></div>
+                    <div class="email-input-row">
+                        <input type="email" id="inBay3" placeholder="e-posta adresi...">
+                        <button class="add-btn" onclick="addEmailFromUI('bay3To','inBay3')">+</button>
                     </div>
-                    <div class="setting-item">
-                        <label>BAY-3 (TO)</label>
-                        <div id="listBay3" class="email-list-container"></div>
-                        <input type="email" id="inBay3" placeholder="Ekle...">
+                </div>
+                <div class="setting-item">
+                    <label>CC LİSTESİ</label>
+                    <div id="listCc" class="email-list-container"></div>
+                    <div class="email-input-row">
+                        <input type="email" id="inCc" placeholder="e-posta adresi...">
+                        <button class="add-btn" onclick="addEmailFromUI('cc','inCc')">+</button>
                     </div>
-                    <div class="setting-item">
-                        <label>CC LİSTESİ</label>
-                        <div id="listCc" class="email-list-container"></div>
-                        <input type="email" id="inCc" placeholder="Ekle...">
+                </div>
+                <button id="btnSaveSettings" class="primary-button" style="background: var(--accent);">KAYDET</button>
+            </div>
+
+            <!-- HAKKINDA İçeriği -->
+            <div id="panelAbout" class="side-panel-body hidden">
+                <div style="text-align: center; padding: 20px 0;">
+                    <div style="font-size: 24px; margin-bottom: 8px;">📦</div>
+                    <b style="font-size: 13px;">Pack Mailler WEB</b><br>
+                    <span style="font-size: 9px; color: var(--text-muted);">v1.2</span>
+                    <div style="margin-top: 16px; font-size: 10px; line-height: 1.6; color: var(--text-muted);">
+                        Bakım paketleri için otomatik<br>mail hazırlama aracı.
                     </div>
-                    <button id="btnSaveSettings" class="primary-button">KAYDET</button>
+                    <div style="margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 9px; color: var(--text-muted); line-height: 1.5;">
+                        BAKIM PLANLAMA ŞEFLİĞİ (SAW)<br>
+                        BAKIM HAZIRLIK BİRİMİ
+                    </div>
                 </div>
             </div>
         </div>
