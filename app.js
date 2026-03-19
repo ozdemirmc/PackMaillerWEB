@@ -85,13 +85,13 @@ async function handleInitialFromAddress() {
         item.from.getAsync(function (result) {
             if (result.status === Office.AsyncResultStatus.Succeeded) {
                 originalFrom = result.value;
-                const currentFromStr = (originalFrom.emailAddress || "").toUpperCase();
+                const currentFromStr = (originalFrom.emailAddress || originalFrom).toUpperCase();
                 console.log("PackMaillerWEB: Current From is:", currentFromStr);
 
                 // Try to set target if different
                 if (currentFromStr !== targetAddress) {
                     console.log("PackMaillerWEB: Trying to set From to:", targetAddress);
-                    item.from.setAsync({ emailAddress: targetAddress }, function (setResult) {
+                    item.from.setAsync([{ emailAddress: targetAddress }], function (setResult) {
                         if (setResult.status === Office.AsyncResultStatus.Succeeded) {
                             console.log("PackMaillerWEB: Target From set successfully.");
                         } else {
@@ -137,7 +137,8 @@ async function checkFromAddress() {
         if (item.from && typeof item.from.getAsync === 'function') {
             item.from.getAsync(function (result) {
                 if (result.status === Office.AsyncResultStatus.Succeeded) {
-                    const currentFrom = (result.value.emailAddress || "").toUpperCase();
+                    // result.value is a From object in some clients, or emailAddressDetails
+                    const currentFrom = (result.value.emailAddress || result.value).toUpperCase();
                     const warningBar = document.getElementById('warningBar');
                     const container = document.getElementById('container');
 
@@ -452,7 +453,7 @@ async function prepareMail() {
                 
                 if (currentFrom !== targetAddress) {
                     // Try to set it one last time
-                    item.from.setAsync({ emailAddress: targetAddress }, function (setResult) {
+                    item.from.setAsync([{ emailAddress: targetAddress }], function (setResult) {
                         if (setResult.status === Office.AsyncResultStatus.Succeeded) {
                             console.log("PackMaillerWEB: From address corrected just before preparation.");
                             executeMailPreparation();
