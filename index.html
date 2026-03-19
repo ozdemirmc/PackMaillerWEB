@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,12 +9,14 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
 </head>
+
 <body>
     <div id="container" class="container">
         <div id="warningBar" class="warning-bar hidden">
             <span style="font-size: 16px;">⚠️</span>
             <div>
-                DİKKAT: GÖNDERİCİ HESABI OLARAK <b style="color: var(--accent);">TT-UBB(SAW)-BAKIMHAZIRLIK</b> SEÇİLMELİDİR!
+                DİKKAT: GÖNDERİCİ HESABI OLARAK <b style="color: var(--accent);">TT-UBB(SAW)-BAKIMHAZIRLIK</b>
+                SEÇİLMELİDİR!
                 <div id="errorDetail" style="font-size: 8px; opacity: 0.7; margin-top: 2px;"></div>
             </div>
         </div>
@@ -29,9 +32,12 @@
                     <div style="flex: 1;">
                         <label class="section-title">BAY</label>
                         <div class="radio-group">
-                            <label class="radio-container"><input type="radio" name="bay" value="BAY-1" checked><span>1</span></label>
-                            <label class="radio-container"><input type="radio" name="bay" value="BAY-2"><span>2</span></label>
-                            <label class="radio-container"><input type="radio" name="bay" value="BAY-3"><span>3</span></label>
+                            <label class="radio-container"><input type="radio" name="bay" value="BAY-1"
+                                    checked><span>1</span></label>
+                            <label class="radio-container"><input type="radio" name="bay"
+                                    value="BAY-2"><span>2</span></label>
+                            <label class="radio-container"><input type="radio" name="bay"
+                                    value="BAY-3"><span>3</span></label>
                         </div>
                     </div>
                 </div>
@@ -40,14 +46,18 @@
             <section class="section">
                 <label class="section-title">BAKIM TİPİ</label>
                 <div class="radio-stack">
-                    <label class="radio-container"><input type="radio" name="type" value="planned" checked><span>PLANLI BAKIM</span></label>
-                    <label class="radio-container"><input type="radio" name="type" value="unplanned"><span>PLANSIZ / PERİYODİK</span></label>
+                    <label class="radio-container"><input type="radio" name="type" value="planned" checked><span>PLANLI
+                            BAKIM</span></label>
+                    <label class="radio-container"><input type="radio" name="type" value="unplanned"><span>PLANSIZ /
+                            PERİYODİK</span></label>
                 </div>
             </section>
 
             <section class="section">
-                <div class="input-field"><label>UÇAK (A/C)</label><input type="text" id="txtAc" placeholder="TC-LLL"></div>
-                <div class="input-field"><label>BAKIM ADI</label><input type="text" id="txtBakim" placeholder="A-CHECK"></div>
+                <div class="input-field"><label>UÇAK (A/C)</label><input type="text" id="txtAc" placeholder="TC-LLL">
+                </div>
+                <div class="input-field"><label>BAKIM ADI</label><input type="text" id="txtBakim" placeholder="A-CHECK">
+                </div>
                 <div class="input-field"><label>TARİH</label><input type="date" id="dateInput"></div>
             </section>
 
@@ -71,6 +81,18 @@
             </div>
         </main>
 
+        <div id="alertOverlay" class="overlay hidden">
+            <div class="modal" style="text-align: center;">
+                <header class="modal-header" style="background: var(--accent);">
+                    <h2 style="font-size: 11px; margin: 0; width: 100%;">⚠️ GÖNDERİCİ UYARISI</h2>
+                </header>
+                <div class="modal-body" style="padding: 16px;">
+                    <p id="alertMessage" style="font-size: 11px; line-height: 1.6; margin: 0;"></p>
+                    <button id="btnAlertOk" class="primary-button" style="margin-top: 10px; background: var(--accent);">TAMAM</button>
+                </div>
+            </div>
+        </div>
+
         <div id="settingsOverlay" class="overlay hidden">
             <div class="modal">
                 <header class="modal-header">
@@ -80,7 +102,10 @@
                 <div class="modal-body">
                     <div class="setting-item">
                         <label>Zimmet Modu</label>
-                        <select id="selZimmetMode"><option value="BIRIM">BİRİM</option><option value="PLANNER">PLANNER</option></select>
+                        <select id="selZimmetMode">
+                            <option value="BIRIM">BİRİM</option>
+                            <option value="PLANNER">PLANNER</option>
+                        </select>
                     </div>
                     <div class="setting-item">
                         <label>BAY-1 (TO)</label>
@@ -110,4 +135,5 @@
     <script src="settings.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>
