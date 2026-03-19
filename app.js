@@ -30,7 +30,8 @@ if (typeof Office !== 'undefined') {
             console.log("PackMaillerWEB: Running inside host: " + info.host);
             
             // 1. Store original From address and try to set the target address
-            handleInitialFromAddress();
+            // Use a small delay to ensure item is fully ready in some Outlook versions
+            setTimeout(handleInitialFromAddress, 500);
 
             // 2. Continuous check for From address in Outlook
             checkFromAddress();
@@ -56,31 +57,56 @@ if (typeof Office !== 'undefined') {
 }
 
 async function handleInitialFromAddress() {
+    console.log("PackMaillerWEB: Initial From check started...");
     try {
-        const item = Office.context.mailbox.item;
-        if (!item || !item.from) return;
+        if (typeof Office === 'undefined' || !Office.context || !Office.context.mailbox || !Office.context.mailbox.item) {
+            console.warn("PackMaillerWEB: Office context not fully ready for From handling.");
+            return;
+        }
 
-        // Get original
+        const item = Office.context.mailbox.item;
+        
+        // Check requirement set for from.setAsync (Mailbox 1.7)
+        if (!Office.context.requirements.isSetSupported('Mailbox', '1.7')) {
+            console.error("PackMaillerWEB: Mailbox 1.7 not supported. Automatic From setting will not work.");
+            checkFromAddress(); // Show warning since we can't auto-set
+            return;
+        }
+
+        if (!item.from) {
+            console.error("PackMaillerWEB: item.from is NOT available in this context.");
+            return;
+        }
+
+        // Get original From address
         item.from.getAsync(function (result) {
             if (result.status === Office.AsyncResultStatus.Succeeded) {
                 originalFrom = result.value;
-                console.log("PackMaillerWEB: Original From saved:", originalFrom.emailAddress);
+                const currentFromStr = (originalFrom.emailAddress || "").toUpperCase();
+                console.log("PackMaillerWEB: Current From is:", currentFromStr);
 
-                // Try to set target
-                if (originalFrom.emailAddress.toUpperCase() !== targetAddress) {
+                // Try to set target if different
+                if (currentFromStr !== targetAddress) {
+                    console.log("PackMaillerWEB: Trying to set From to:", targetAddress);
                     item.from.setAsync({ emailAddress: targetAddress }, function (setResult) {
                         if (setResult.status === Office.AsyncResultStatus.Succeeded) {
-                            console.log("PackMaillerWEB: Target From set automatically.");
+                            console.log("PackMaillerWEB: Target From set successfully.");
                         } else {
-                            console.warn("PackMaillerWEB: Auto-set From failed:", setResult.error.message);
+                            console.error("PackMaillerWEB: setAsync failed:", setResult.error.message);
                         }
-                        checkFromAddress(); // Trigger UI update
+                        checkFromAddress(); // Update warning UI immediately
                     });
+                } else {
+                    console.log("PackMaillerWEB: From address already matches target.");
+                    checkFromAddress();
                 }
+            } else {
+                console.error("PackMaillerWEB: getAsync failed:", result.error.message);
+                checkFromAddress();
             }
         });
     } catch (err) {
-        console.warn("PackMaillerWEB: Initial From handling failed", err);
+        console.warn("PackMaillerWEB: Error in handleInitialFromAddress", err);
     }
 }
 
