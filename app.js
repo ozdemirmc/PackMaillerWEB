@@ -95,7 +95,7 @@ function initApp() {
     const panelAbout = document.getElementById('panelAbout');
 
     // Yan panel aç/kapat fonksiyonları
-    window.openSidePanel = function(view) {
+    window.openSidePanel = function (view) {
         // İçerik değiştir
         if (view === 'settings') {
             sidePanelTitle.textContent = '⚙️ AYARLAR';
@@ -111,7 +111,7 @@ function initApp() {
         sidePanelBackdrop.classList.remove('hidden');
     };
 
-    window.closeSidePanel = function() {
+    window.closeSidePanel = function () {
         sidePanel.classList.remove('open');
         sidePanelBackdrop.classList.add('hidden');
     };
@@ -403,7 +403,7 @@ function showAlert(message, title) {
     const titleEl = document.getElementById('alertTitle');
     if (overlay && msgEl) {
         msgEl.innerHTML = message;
-        if (titleEl) titleEl.textContent = title || '⚠️ GÖNDERİCİ UYARISI';
+        if (titleEl) titleEl.textContent = title || '⚠️ UYARI';
         overlay.classList.remove('hidden');
     } else {
         // Fallback: konsola yaz
@@ -416,14 +416,14 @@ async function prepareMail() {
     const bakim = document.getElementById('txtBakim').value.toUpperCase().trim();
 
     if (!ac || !bakim) {
-        showAlert("A/C ve BAKIM ADI alanları boş bırakılamaz!");
+        showAlert("<b style='color: var(--accent);'>A/C</b> VE <b style='color: var(--accent);'>BAKIM ADI</b> ALANLARI BOŞ BIRAKILAMAZ!");
         return;
     }
 
     // Office konteksti yoksa engelle
     if (typeof Office === 'undefined' || !Office.context || !Office.context.mailbox || !Office.context.mailbox.item) {
         console.warn("PackMaillerWEB: Office context not available.");
-        showAlert("Outlook bağlantısı kurulamadı.<br>Eklentiyi Outlook içinden açtığınızdan emin olun.");
+        showAlert("OUTLOOK BAĞLANTISI KURULAMADI.<br>EKLENTİYİ OUTLOOK İÇİNDEN AÇTIĞINIZDAN EMİN OLUN.");
         return;
     }
 

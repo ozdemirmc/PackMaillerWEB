@@ -8,7 +8,7 @@
   <Version>1.0.0.0</Version>
   <ProviderName>THY</ProviderName>
   <DefaultLocale>tr-TR</DefaultLocale>
-  <DisplayName DefaultValue="Pack Mailler WEB" />
+  <DisplayName DefaultValue="PAKET HAZIRLIK WEB" />
   <Description DefaultValue="Bakım paketleri için otomatik mail hazırlama aracı." />
   <IconUrl DefaultValue="https://ozdemirmc.github.io/PackMaillerWEB/assets/PMTHY.png" />
   <HighResolutionIconUrl DefaultValue="https://ozdemirmc.github.io/PackMaillerWEB/assets/PMTHY.png" />
@@ -81,9 +81,9 @@
         <bt:Url id="taskpaneUrl" DefaultValue="https://ozdemirmc.github.io/PackMaillerWEB/index.html" />
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="groupLabel" DefaultValue="Pack Mailler" />
-        <bt:String id="paneButtonLabel" DefaultValue="Pack Mail" />
-        <bt:String id="paneButtonTitle" DefaultValue="Pack Mailler'ı Aç" />
+        <bt:String id="groupLabel" DefaultValue="PAKET HAZIRLIK" />
+        <bt:String id="paneButtonLabel" DefaultValue="PAKET HAZIR" />
+        <bt:String id="paneButtonTitle" DefaultValue="Paket Hazır'ı Aç" />
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="paneButtonDescription" DefaultValue="Bakım paketleri için otomatik mail hazırlama aracını açar." />
