@@ -1,22 +1,19 @@
-# Pack Mailler WEB
+# PackNotice
 
-Bakım paketleri için otomatik mail hazırlama aracı. Bu proje, bir Outlook Web Add-in (Eklenti) olarak çalışır.
+Bakım paketleri için kurumsal formatta mail hazırlama aracı.
 
-## Kurulum ve Dağıtım
+## Amaç
+Bu proje, uçak bakım paketlerinin (C-Check vb.) tamamlanmasının ardından ilgili birimlere (Bay 1-2-3) gönderilen bilgilendirme maillerini standart bir formata sokmak için geliştirilmiştir.
 
-Bu eklenti GitHub Pages üzerinde barındırılmaktadır.
+Ekip içindeki farklı üslupları ve formatları ortadan kaldırarak kurumsal bir iletişim dili oluşturmayı hedefler.
 
-1. **Manifest Yükleme:** `manifest.xml` dosyasını Outlook'un "Özel Eklenti Ekle" kısmından yükleyin.
-2. **Kullanım:** Outlook'ta yeni bir mail oluştururken veya bir maili yanıtlarken "Pack Mailler" butonuna tıklayarak task pane'i açabilirsiniz.
+## Özellikler
+- **Hızlı Giriş**: A/C, Bakım Adı ve Tarih bilgilerini kolayca girin.
+- **Dinamik Bay Seçimi**: Mailin gönderileceği alıcıyı tek tıkla belirleyin.
+- **Zimmet Yönetimi**: Planlı veya Plansız bakıma göre otomatik zimmet tabloları oluşturur.
+- **Outlook Entegrasyonu**: Doğrudan Outlook Taskpane üzerinden çalışır.
 
-## Dosya Yapısı
-
-- `index.html`: Eklentinin ana arayüzü.
-- `app.js`: Mail hazırlama ve Office.js entegrasyon mantığı.
-- `style.css`: Görsel tasarım dosyası.
-- `settings.js`: Kullanıcı ayarları ve yerel depolama yönetimi.
-- `manifest.xml`: Outlook için yapılandırma dosyası.
-- `assets/`: Eklenti ikonları.
-
----
-*Hazırlayan: ozdemirmc*
+## Kurulum ve Kullanım
+1. Proje dosyalarını GitHub Pages üzerinden host edin.
+2. `manifest.xml` dosyasındaki URL kısımlarını kendi host adresinizle güncelleyin.
+3. XML dosyasını Outlook'ta eklenti olarak tanıtın.

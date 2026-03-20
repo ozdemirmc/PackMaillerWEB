@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAKET HAZIRLIK</title>
+    <title>PackNotice</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
@@ -12,29 +12,22 @@
 
 <body>
     <div id="container" class="container">
-        <header class="header">
-            <h1>PAKET MAİLCİSİ</h1>
-        </header>
 
         <main>
             <section class="section">
-                <div style="display: flex; gap: 10px;">
-                    <div style="flex: 1;">
-                        <label class="section-title"></label>
-                        <div class="radio-group">
+                <label class="section-title">BAY SEÇİMİ</label>
+                <div class="radio-group">
                             <label class="radio-container"><input type="radio" name="bay" value="BAY-1"
                                     checked><span>BAY-1</span></label>
                             <label class="radio-container"><input type="radio" name="bay"
                                     value="BAY-2"><span>BAY-2</span></label>
                             <label class="radio-container"><input type="radio" name="bay"
                                     value="BAY-3"><span>BAY-3</span></label>
-                        </div>
-                    </div>
                 </div>
             </section>
 
             <section class="section">
-                <label class="section-title"></label>
+                <label class="section-title">BAKIM TİPİ</label>
                 <div class="radio-stack">
                     <label class="radio-container"><input type="radio" name="type" value="planned" checked><span>PLANLI
                             BAKIM</span></label>
@@ -48,9 +41,10 @@
             <section class="section">
                 <div class="input-field"><label>UÇAK (A/C)</label><input type="text" id="txtAc" placeholder="TC-CHT">
                 </div>
-                <div class="input-field"><label>BAKIM ADI</label><input type="text" id="txtBakim" placeholder="A-CHECK">
+                <div class="input-field"><label>BAKIM ADI</label><input type="text" id="txtBakim" placeholder="C-CHECK">
                 </div>
-                <div class="input-field"><label>BAKIM GİRİŞ TARİHİ</label><input type="date" id="dateInput" lang="tr">
+                <div class="input-field"><label>BAKIM GİRİŞ TARİHİ</label><input type="date" id="dateInput" lang="tr"
+                        placeholder="GG.AA.YYYY">
                 </div>
             </section>
 
@@ -160,11 +154,12 @@
             <!-- HAKKINDA İçeriği -->
             <div id="panelAbout" class="side-panel-body hidden">
                 <div style="text-align: center; padding: 20px 0;">
-                    <div style="font-size: 24px; margin-bottom: 8px;">📦</div>
-                    <b style="font-size: 13px;">PAKET MAİLCİSİ</b><br>
-                    <span style="font-size: 9px; color: var(--text-muted);">v1.2</span>
+                    <img src="assets/PMTHY.png"
+                        style="width: 48px; height: 48px; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+                    <br><b style="font-size: 13px;">PackNotice</b><br>
+                    <span style="font-size: 9px; color: var(--text-muted);">v1.4</span>
                     <div style="margin-top: 16px; font-size: 10px; line-height: 1.6; color: var(--text-muted);">
-                        BAKIM PAKETLERİ İÇİN<br>OTOMATİK MAİL HAZIRLAMA ARACI
+                        BAKIM PAKETLERİ İÇİN<br>MAİL HAZIRLAMA ARACI
                     </div>
                     <div
                         style="margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--border); font-size: 9px; color: var(--text-muted); line-height: 1.5;">

@@ -4,7 +4,7 @@
  */
 
 // Debugging log
-console.log("PackMaillerWEB: Script loading version 1.1...");
+console.log("PackNotice: Script loading version 1.4...");
 
 // Check if settings are available
 if (!window.PackSettings) {
@@ -304,7 +304,13 @@ function generateHTML() {
             const year = parts[0];
             const month = parts[1];
             const day = parts[2];
-            date = `${day}.${month}.${year}`;
+            
+            // Gün ismini hesaplama (Güvenli yöntem)
+            const days = ['PAZAR', 'PAZARTESİ', 'SALI', 'ÇARŞAMBA', 'PERŞEMBE', 'CUMA', 'CUMARTESİ'];
+            const d = new Date(year, month - 1, day);
+            const dayName = days[d.getDay()];
+            
+            date = `${day}.${month}.${year} ${dayName}`;
         } else {
             // Fallback: Eğer browser date inputu desteklemiyorsa ve kullanıcı farklı girdiys
             date = dateRaw;
@@ -500,10 +506,10 @@ async function prepareMail() {
                 // Gönderici adresi yanlış - mail hazırlamayı engelle
                 showAlert(
                     "<b>GÖNDERİCİ ADRESİ YANLIŞ!</b><br><br>" +
-                    "Mail hazırlanamaz.<br><br>" +
-                    "Lütfen mailin <b>'Kimden' (From)</b> alanından<br>" +
+                    "MAİL HAZIRLANAMAZ.<br><br>" +
+                    "LÜTFEN MAİLİN <b>'KİMDEN' (FROM)</b> ALANINDAN<br>" +
                     "<b style='color: var(--accent);'>TT-UBB(SAW)-BAKIMHAZIRLIK</b><br>" +
-                    "hesabını seçin ve tekrar deneyin."
+                    "HESABINI SEÇİN VE TEKRAR DENEYİN."
                 );
                 console.warn("PackMaillerWEB: Preparation blocked - wrong sender: " + currentFrom);
                 return;
@@ -515,9 +521,9 @@ async function prepareMail() {
             // from.getAsync başarısız olursa da uyarı ver
             showAlert(
                 "<b>GÖNDERİCİ ADRESİ DOĞRULANAMADI!</b><br><br>" +
-                "Lütfen mailin <b>'Kimden' (From)</b> alanından<br>" +
+                "LÜTFEN MAİLİN <b>'KİMDEN' (FROM)</b> ALANINDAN<br>" +
                 "<b style='color: var(--accent);'>TT-UBB(SAW)-BAKIMHAZIRLIK</b><br>" +
-                "hesabının seçili olduğundan emin olun."
+                "HESABININ SEÇİLİ OLDUĞUNDAN EMİN OLUN."
             );
             console.error("PackMaillerWEB: from.getAsync failed:", result.error ? result.error.message : "unknown");
         }
