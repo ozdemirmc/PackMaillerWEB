@@ -351,7 +351,7 @@ function generateHTML() {
                                 <table style="width: 100%; border-collapse: collapse; margin-top: 5px;">
                                     <tr>
                                         <th style="border: 1px solid #d1d5db; padding: 6px 10px; background-color: #E2001A; color: #ffffff; text-align: left; width: 1%; white-space: nowrap; font-weight: bold; font-size: 13px;">PLANNER</th>
-                                        <td style="border: 1px solid #d1d5db; padding: 6px 10px; font-weight: 400 !important;">&nbsp;</td>
+                                        <td style="border: 1px solid #d1d5db; padding: 6px 10px; font-weight: 400 !important; font-style: normal !important; font-family: 'Segoe UI', Tahoma, sans-serif !important;">&nbsp;</td>
                                     </tr>
                                 </table>
         `;
@@ -381,7 +381,7 @@ function generateHTML() {
 
         skills.forEach(skill => {
             if (document.getElementById(skill.id).checked) {
-                html += `<tr><td style="border: 1px solid #d1d5db; padding: 6px 10px; font-weight: bold; width: 1%; white-space: nowrap; font-size: 13px;">${skill.name}</td><td style="border: 1px solid #d1d5db; padding: 6px 10px; font-weight: 400 !important;">&nbsp;</td></tr>`;
+                html += `<tr><td style="border: 1px solid #d1d5db; padding: 6px 10px; font-weight: bold; width: 1%; white-space: nowrap; font-size: 13px;">${skill.name}</td><td style="border: 1px solid #d1d5db; padding: 6px 10px; font-weight: 400 !important; font-style: normal !important; font-family: 'Segoe UI', Tahoma, sans-serif !important;">&nbsp;</td></tr>`;
             }
         });
 
@@ -412,7 +412,7 @@ function generateHTML() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td style="border: 1px solid #d1d5db; padding: 6px 10px; font-weight: bold; width: 1%; white-space: nowrap; font-size: 13px;">MEKANİK</td><td style="border: 1px solid #d1d5db; padding: 6px 10px;"></td></tr>
+                                        <tr><td style="border: 1px solid #d1d5db; padding: 6px 10px; font-weight: bold; width: 1%; white-space: nowrap; font-size: 13px;">MEKANİK</td><td style="border: 1px solid #d1d5db; padding: 6px 10px; font-weight: 400 !important;">&nbsp;</td></tr>
                                     </tbody>
                                 </table>
         `;
