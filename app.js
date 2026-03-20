@@ -296,11 +296,19 @@ function generateHTML() {
     const dateRaw = document.getElementById('dateInput').value;
     let date = '';
     if (dateRaw) {
-        const d = new Date(dateRaw);
-        const day = String(d.getDate()).padStart(2, '0');
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const year = d.getFullYear();
-        date = `${day}.${month}.${year}`;
+        // input type="date" her zaman YYYY-MM-DD döner. 
+        // new Date(dateRaw) her zaman güvenilir değildir (saat dilimi kayması gibi).
+        // Doğrudan string operasyonu daha güvenlidir.
+        const parts = dateRaw.split('-');
+        if (parts.length === 3) {
+            const year = parts[0];
+            const month = parts[1];
+            const day = parts[2];
+            date = `${day}.${month}.${year}`;
+        } else {
+            // Fallback: Eğer browser date inputu desteklemiyorsa ve kullanıcı farklı girdiys
+            date = dateRaw;
+        }
     }
 
     const bakimPlaniText = typeValue === 'planned' ? 'VAR' : typeValue === 'periodic' ? 'PERİYODİK BAKIM' : 'YOK';
@@ -407,7 +415,7 @@ function generateHTML() {
     html += `
                                 <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #d1d5db; font-size: 0.9em; color: #6c757d;">
                                     <strong>BAKIM PLANLAMA ŞEFLİĞİ (SAW)</strong><br>
-                                    BAKIM HAZIRLIK BİRİMİ TARAFINDAN GELİŞTİRİLMİŞTİR
+                                    BAKIM HAZIRLIK BİRİMİ
                                 </div>
                             </td>
                         </tr>
