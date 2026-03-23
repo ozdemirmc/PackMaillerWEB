@@ -10,7 +10,7 @@ const DefaultSettings = {
     bay1To: ['tt-ubbsaw-bay1planner@thy.com', 'ttubbsawbay1yoneticipersonel@thy.com'],
     bay2To: ['ttubbsawbay2planner@thy.com', 'ttubbsawbay2yoneticipersonel@thy.com'],
     bay3To: ['ttubbsawbay3planner@thy.com', 'ttubbsawbay3yoneticipersonel@thy.com'],
-    cc: ['ttubbsawpakethazirlik@thy.com']
+    cc: ['ttubbsawpakethazirlik@thy.com', 'ttubbsawbakimplanlama@thy.com']
 };
 
 function loadSettings() {
