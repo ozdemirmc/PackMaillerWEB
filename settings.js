@@ -3,7 +3,7 @@
  * Uses localStorage to persist user configurations.
  */
 
-const SETTINGS_KEY = 'PackMaillerSettings';
+const SETTINGS_KEY = 'PackNoticeSettings';
 
 const DefaultSettings = {
     zimmetMode: 'BIRIM', // 'BIRIM' or 'PLANNER'
@@ -39,5 +39,9 @@ function saveSettings(settings) {
 // Global accessor
 window.PackSettings = {
     get: loadSettings,
-    save: saveSettings
+    save: saveSettings,
+    reset: () => {
+        localStorage.removeItem(SETTINGS_KEY);
+        return DefaultSettings;
+    }
 };

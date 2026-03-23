@@ -93,6 +93,10 @@ function initApp() {
     const sidePanelTitle = document.getElementById('sidePanelTitle');
     const panelSettings = document.getElementById('panelSettings');
     const panelAbout = document.getElementById('panelAbout');
+    const btnResetSettings = document.getElementById('btnResetSettings');
+    const confirmOverlay = document.getElementById('confirmOverlay');
+    const btnConfirmYes = document.getElementById('btnConfirmYes');
+    const btnConfirmNo = document.getElementById('btnConfirmNo');
 
     // Yan panel aç/kapat fonksiyonları
     window.openSidePanel = function (view) {
@@ -124,6 +128,13 @@ function initApp() {
     if (btnAlertOk) {
         btnAlertOk.onclick = () => {
             if (alertOverlay) alertOverlay.classList.add('hidden');
+        };
+    }
+
+    // Onay modali kapatma (İptal)
+    if (btnConfirmNo) {
+        btnConfirmNo.onclick = () => {
+            if (confirmOverlay) confirmOverlay.classList.add('hidden');
         };
     }
 
@@ -192,6 +203,23 @@ function initApp() {
             closeSidePanel();
             applyZimmetMode();
             updatePreview();
+        };
+    }
+
+    if (btnResetSettings) {
+        btnResetSettings.onclick = () => {
+            showConfirm(
+                "ÖZELLEŞTİRDİĞİNİZ GÖNDERİ ADRESLERİ VARSAYILAN AYARLARA DÖNDÜRÜLECEK.<br><br>DEVAM ETMEK İSTİYOR MUSUNUZ?",
+                () => {
+                    const defaulted = window.PackSettings.reset();
+                    currentSettings = defaulted;
+                    loadSettingsToUI();
+                    applyZimmetMode();
+                    updatePreview();
+                    if (confirmOverlay) confirmOverlay.classList.add('hidden');
+                    console.log("Settings reset to defaults.");
+                }
+            );
         };
     }
 
@@ -462,6 +490,19 @@ function showAlert(message, title) {
     } else {
         // Fallback: konsola yaz
         console.error("PackNotice UYARI:", message);
+    }
+}
+
+// Onay modali göster
+function showConfirm(message, onYes) {
+    const overlay = document.getElementById('confirmOverlay');
+    const msgEl = document.getElementById('confirmMessage');
+    const btnYes = document.getElementById('btnConfirmYes');
+
+    if (overlay && msgEl && btnYes) {
+        msgEl.innerHTML = message;
+        btnYes.onclick = onYes;
+        overlay.classList.remove('hidden');
     }
 }
 

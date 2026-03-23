@@ -5,7 +5,7 @@
            xmlns:mailappor="http://schemas.microsoft.com/office/mailappversionoverrides" 
            xsi:type="MailApp">
   <Id>d2c3e1b0-4a6a-4f1a-9f1a-b61b40ba8ba8</Id>
-  <Version>1.1.0.0</Version>
+  <Version>1.4.0.0</Version>
   <ProviderName>THY</ProviderName>
   <DefaultLocale>tr-TR</DefaultLocale>
   <DisplayName DefaultValue="PackNotice" />
