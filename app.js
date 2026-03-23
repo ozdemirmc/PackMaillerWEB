@@ -352,15 +352,15 @@ function generateHTML() {
     const isPlannerMode = currentSettings.zimmetMode === 'PLANNER';
 
     let html = `
-        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #fafafa;">
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 0; padding: 0;">
             <tr>
-                <td align="center" style="padding: 20px;">
+                <td align="left" style="padding: 0;">
                     <!--[if mso]>
-                    <table align="center" border="0" cellspacing="0" cellpadding="0" width="700" style="border: 1px solid #d1d5db; background-color: #ffffff;">
+                    <table align="left" border="0" cellspacing="0" cellpadding="0" width="650" style="border: 1px solid #d1d5db; font-family: 'Segoe UI', Tahoma, sans-serif;">
                     <tr>
-                    <td align="left" valign="top" width="700" style="padding: 20px; font-family: 'Segoe UI', Tahoma, sans-serif; color: #000000; line-height: 1.6;">
+                    <td align="left" valign="top" width="650" style="padding: 20px; color: #000000; line-height: 1.6;">
                     <![endif]-->
-                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 700px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Segoe UI', Tahoma, sans-serif; color: #000000; line-height: 1.6; text-align: left; background-color: #ffffff; margin: 0 auto;">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width: 650px; border: 1px solid #d1d5db; border-radius: 8px; font-family: 'Segoe UI', Tahoma, sans-serif; color: #000000; line-height: 1.6; text-align: left; background-color: #ffffff; margin: 0;">
                         <tr>
                             <td style="padding: 20px;">
                                 <p style="margin-top: 0; font-size: 14px;">Sayın İlgililer,</p>
