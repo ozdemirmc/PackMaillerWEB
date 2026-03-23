@@ -1,5 +1,5 @@
 /**
- * Main application logic for PackMaillerWEB
+ * Main application logic for PackNotice
  * Ported from VSTO C# implementation.
  */
 
@@ -8,7 +8,7 @@ console.log("PackNotice: Script loading version 1.4...");
 
 // Check if settings are available
 if (!window.PackSettings) {
-    console.error("PackMaillerWEB: settings.js not loaded or PackSettings missing!");
+    console.error("PackNotice: settings.js not loaded or PackSettings missing!");
 }
 
 let currentSettings = window.PackSettings ? window.PackSettings.get() : { zimmetMode: 'BIRIM' };
@@ -16,30 +16,30 @@ const targetAddress = "TTUBBSAWPAKETHAZIRLIK@THY.COM";
 
 // Ultra-defensive Office initialization
 function startApp() {
-    console.log("PackMaillerWEB: Starting app logic...");
+    console.log("PackNotice: Starting app logic...");
     initApp();
 }
 
 // Office context initialization
 if (typeof Office !== 'undefined') {
     Office.onReady(function (info) {
-        console.log("PackMaillerWEB: Office.js ready check.");
+        console.log("PackNotice: Office.js ready check.");
         if (info && info.host) {
-            console.log("PackMaillerWEB: Running inside host: " + info.host);
+            console.log("PackNotice: Running inside host: " + info.host);
 
             // Gönderici adresini periyodik olarak kontrol et ve uyarı göster
             setTimeout(checkFromAddress, 500);
             setInterval(checkFromAddress, 5000);
         } else {
-            console.log("PackMaillerWEB: Running in standalone browser mode.");
+            console.log("PackNotice: Running in standalone browser mode.");
         }
         startApp();
     }).catch(function (err) {
-        console.error("PackMaillerWEB: Office.onReady failed, starting anyway.", err);
+        console.error("PackNotice: Office.onReady failed, starting anyway.", err);
         startApp();
     });
 } else {
-    console.warn("PackMaillerWEB: Office.js script tag not found or failed to load.");
+    console.warn("PackNotice: Office.js script tag not found or failed to load.");
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', startApp);
     } else {
@@ -78,7 +78,7 @@ async function checkFromAddress() {
             });
         }
     } catch (err) {
-        console.warn("PackMaillerWEB: From address check failed", err);
+        console.warn("PackNotice: From address check failed", err);
     }
 }
 
@@ -446,7 +446,7 @@ function updatePreview() {
             preview.innerHTML = generateHTML();
         }
     } catch (err) {
-        console.error("PackMaillerWEB: Önizleme güncellenemedi", err);
+        console.error("PackNotice: Önizleme güncellenemedi", err);
     }
 }
 
@@ -461,7 +461,7 @@ function showAlert(message, title) {
         overlay.classList.remove('hidden');
     } else {
         // Fallback: konsola yaz
-        console.error("PackMaillerWEB UYARI:", message);
+        console.error("PackNotice UYARI:", message);
     }
 }
 
@@ -477,7 +477,7 @@ async function prepareMail() {
 
     // Office konteksti yoksa engelle
     if (typeof Office === 'undefined' || !Office.context || !Office.context.mailbox || !Office.context.mailbox.item) {
-        console.warn("PackMaillerWEB: Office context not available.");
+        console.warn("PackNotice: Office context not available.");
         showAlert("OUTLOOK BAĞLANTISI KURULAMADI.<br>EKLENTİYİ OUTLOOK İÇİNDEN AÇTIĞINIZDAN EMİN OLUN.");
         return;
     }
@@ -486,7 +486,7 @@ async function prepareMail() {
 
     // from.getAsync yoksa da engelle
     if (!item.from || typeof item.from.getAsync !== 'function') {
-        console.warn("PackMaillerWEB: item.from.getAsync not available.");
+        console.warn("PackNotice: item.from.getAsync not available.");
         showAlert(
             "<b>Gönderici adresi kontrol edilemiyor.</b><br><br>" +
             "Lütfen mailin <b>'Kimden' (From)</b> alanından<br>" +
@@ -500,7 +500,7 @@ async function prepareMail() {
     item.from.getAsync(function (result) {
         if (result.status === Office.AsyncResultStatus.Succeeded) {
             const currentFrom = (result.value.emailAddress || "").toUpperCase();
-            console.log("PackMaillerWEB: prepareMail check - current From:", currentFrom);
+            console.log("PackNotice: prepareMail check - current From:", currentFrom);
 
             if (currentFrom !== targetAddress) {
                 // Gönderici adresi yanlış - mail hazırlamayı engelle
@@ -511,7 +511,7 @@ async function prepareMail() {
                     "<b style='color: var(--accent);'>TT-UBB(SAW)-BAKIMHAZIRLIK</b><br>" +
                     "HESABINI SEÇİN VE TEKRAR DENEYİN."
                 );
-                console.warn("PackMaillerWEB: Preparation blocked - wrong sender: " + currentFrom);
+                console.warn("PackNotice: Preparation blocked - wrong sender: " + currentFrom);
                 return;
             }
 
@@ -525,7 +525,7 @@ async function prepareMail() {
                 "<b style='color: var(--accent);'>TT-UBB(SAW)-BAKIMHAZIRLIK</b><br>" +
                 "HESABININ SEÇİLİ OLDUĞUNDAN EMİN OLUN."
             );
-            console.error("PackMaillerWEB: from.getAsync failed:", result.error ? result.error.message : "unknown");
+            console.error("PackNotice: from.getAsync failed:", result.error ? result.error.message : "unknown");
         }
     });
 }

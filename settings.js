@@ -1,5 +1,5 @@
 /**
- * Settings management for PackMaillerWEB
+ * Settings management for PackNotice
  * Uses localStorage to persist user configurations.
  */
 
