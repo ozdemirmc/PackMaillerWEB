@@ -360,8 +360,8 @@ function generateHTML() {
                                 <p style="margin: 0 0 15px 0; font-size: 15px;">Kartların zimmetleneceği <strong>planner sicili ve ismini</strong> bu e-posta yoluyla bildirmenizi rica ederiz.</p>
                                 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; margin-bottom: 15px;">
                                     <tr>
-                                        <th style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; width: 120px; font-weight: bold; font-size: 14px;">PLANNER</th>
-                                        <td style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #f8fafc;">&nbsp;</td>
+                                        <th valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; width: 120px; font-weight: bold; font-size: 14px; vertical-align: middle;">PLANNER</th>
+                                        <td valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #f8fafc; vertical-align: middle;">&nbsp;</td>
                                     </tr>
                                 </table>
         `;
@@ -371,8 +371,8 @@ function generateHTML() {
                                 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; margin-bottom: 15px;">
                                     <thead>
                                         <tr>
-                                            <th style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; width: 120px; font-weight: bold; font-size: 14px;">BİRİM</th>
-                                            <th style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; font-weight: bold; font-size: 14px;">ZİMMET ÇIKILACAK SİCİL - İSİM</th>
+                                            <th valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; width: 120px; font-weight: bold; font-size: 14px; vertical-align: middle;">BİRİM</th>
+                                            <th valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; font-weight: bold; font-size: 14px; vertical-align: middle;">ZİMMET ÇIKILACAK SİCİL - İSİM</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -391,7 +391,7 @@ function generateHTML() {
 
         skills.forEach(skill => {
             if (document.getElementById(skill.id).checked) {
-                html += `<tr><td style="border: 1px solid #e2e8f0; padding: 10px 15px; font-weight: bold; font-size: 13px; color: #0f172a; background-color: #f8fafc;">${skill.name}</td><td style="border: 1px solid #e2e8f0; padding: 10px 15px;">&nbsp;</td></tr>`;
+                html += `<tr><td valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; font-weight: bold; font-size: 13px; color: #0f172a; background-color: #f8fafc; vertical-align: middle;">${skill.name}</td><td valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; vertical-align: middle;">&nbsp;</td></tr>`;
             }
         });
 
@@ -402,12 +402,12 @@ function generateHTML() {
                                 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; margin-bottom: 15px;">
                                     <thead>
                                         <tr>
-                                            <th style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; width: 120px; font-weight: bold; font-size: 14px;">BİRİM</th>
-                                            <th style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; font-weight: bold; font-size: 14px;">ZİMMET ÇIKILACAK SİCİL - İSİM</th>
+                                            <th valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; width: 120px; font-weight: bold; font-size: 14px; vertical-align: middle;">BİRİM</th>
+                                            <th valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; font-weight: bold; font-size: 14px; vertical-align: middle;">ZİMMET ÇIKILACAK SİCİL - İSİM</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td style="border: 1px solid #e2e8f0; padding: 10px 15px; font-weight: bold; font-size: 13px; color: #0f172a; background-color: #f8fafc;">MEKANİK</td><td style="border: 1px solid #e2e8f0; padding: 10px 15px;">&nbsp;</td></tr>
+                                        <tr><td valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; font-weight: bold; font-size: 13px; color: #0f172a; background-color: #f8fafc; vertical-align: middle;">MEKANİK</td><td valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; vertical-align: middle;">&nbsp;</td></tr>
                                     </tbody>
                                 </table>
         `;
@@ -417,12 +417,12 @@ function generateHTML() {
                                 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse; margin-bottom: 15px;">
                                     <thead>
                                         <tr>
-                                            <th style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; width: 120px; font-weight: bold; font-size: 14px;">BİRİM</th>
-                                            <th style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; font-weight: bold; font-size: 14px;">ZİMMET ÇIKILACAK SİCİL - İSİM</th>
+                                            <th valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; width: 120px; font-weight: bold; font-size: 14px; vertical-align: middle;">BİRİM</th>
+                                            <th valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; background-color: #E2001A; color: #ffffff; text-align: left; font-weight: bold; font-size: 14px; vertical-align: middle;">ZİMMET ÇIKILACAK SİCİL - İSİM</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr><td style="border: 1px solid #e2e8f0; padding: 10px 15px; font-weight: bold; font-size: 13px; color: #0f172a; background-color: #f8fafc;">MEKANİK</td><td style="border: 1px solid #e2e8f0; padding: 10px 15px;">&nbsp;</td></tr>
+                                        <tr><td valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; font-weight: bold; font-size: 13px; color: #0f172a; background-color: #f8fafc; vertical-align: middle;">MEKANİK</td><td valign="middle" style="border: 1px solid #e2e8f0; padding: 10px 15px; vertical-align: middle;">&nbsp;</td></tr>
                                     </tbody>
                                 </table>
         `;
